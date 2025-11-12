@@ -1,7 +1,7 @@
-﻿// Contact form → WhatsApp integration
+﻿// Contact form → Formspree integration with WhatsApp fallback
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const rawName = contactForm.name.value.trim();
@@ -21,20 +21,59 @@ if (contactForm) {
       return;
     }
 
-    const waNumber = phoneNormalized.startsWith('+') ? phoneNormalized.slice(1) : phoneNormalized; // remove + if present
+    const formspreeEndpoint = contactForm.dataset.formspree && contactForm.dataset.formspree !== 'https://formspree.io/f/your-form-id'
+      ? contactForm.dataset.formspree.trim()
+      : null;
 
-    const textPlain = `🔧 New Service Request:\n\n📝 Name: ${rawName}\n📱 Phone: ${rawPhone}\n🛠️ Service: ${rawService}\n💬 Issue: ${rawMessage}`;
-    const encoded = encodeURIComponent(textPlain);
+    const showMessage = (text, success = true) => {
+      const msg = document.getElementById('formMessage');
+      if (!msg) return;
+      msg.style.display = 'block';
+      msg.style.color = success ? '#064e3b' : '#b91c1c';
+      msg.textContent = text;
+    };
 
-    // Open WhatsApp (web or app) in a new tab
-    const waUrl = `https://wa.me/${waNumber}?text=${encoded}`;
-    window.open(waUrl, '_blank');
+    if (formspreeEndpoint) {
+      // Send to Formspree via fetch
+      try {
+        const formData = new FormData(contactForm);
+        // Add a friendly summary field if Formspree needs it
+        formData.append('summary', `Service: ${rawService} — Phone: ${rawPhone}`);
 
-    contactForm.reset();
-    // friendly confirmation
-    setTimeout(() => {
-      alert('Thank you! Your request has been prepared and will open in WhatsApp — send it there to complete the request.');
-    }, 200);
+        const res = await fetch(formspreeEndpoint, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (res.ok) {
+          showMessage('Thanks! Your request has been sent. We will contact you shortly.', true);
+          contactForm.reset();
+        } else {
+          const data = await res.json().catch(() => ({}));
+          const err = data.error || 'Submission failed — please try again or use WhatsApp.';
+          showMessage(err, false);
+        }
+      } catch (err) {
+        showMessage('Network error — please try again or contact us directly via WhatsApp.', false);
+      }
+    } else {
+      // No Formspree configured — fallback to WhatsApp like before
+      const waNumber = phoneNormalized.startsWith('+') ? phoneNormalized.slice(1) : phoneNormalized; // remove + if present
+
+      const textPlain = `🔧 New Service Request:\n\n📝 Name: ${rawName}\n📱 Phone: ${rawPhone}\n🛠️ Service: ${rawService}\n💬 Issue: ${rawMessage}`;
+      const encoded = encodeURIComponent(textPlain);
+
+      // Open WhatsApp (web or app) in a new tab
+      const waUrl = `https://wa.me/${waNumber}?text=${encoded}`;
+      window.open(waUrl, '_blank');
+      contactForm.reset();
+      setTimeout(() => {
+        alert('Thank you! Your request has been prepared and will open in WhatsApp — send it there to complete the request.');
+      }, 200);
+    }
   });
 }
 

@@ -45,7 +45,10 @@
 
     <section class="contact-section">
         <div class="container contact-grid">
-            <form class="contact-form" id="contactForm">
+            <!-- To enable Formspree: replace the data-formspree value with your form endpoint, for example: https://formspree.io/f/your-form-id -->
+            <form class="contact-form" id="contactForm" method="POST" data-formspree="https://formspree.io/f/your-form-id">
+                <input type="hidden" name="_subject" value="New service request from website">
+
                 <label for="name">Name</label>
                 <input id="name" name="name" type="text" required />
 
@@ -63,6 +66,8 @@
 
                 <label for="message">Describe the Issue</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
+
+                <div id="formMessage" aria-live="polite" class="form-message" style="display:none; margin-bottom:12px;"></div>
 
                 <button class="btn btn-primary" type="submit">Send Request</button>
             </form>
