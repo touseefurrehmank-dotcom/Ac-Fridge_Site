@@ -38,6 +38,39 @@ if (contactForm) {
   });
 }
 
+// Counter animation: animate numbers when stats section scrolls into view
+function animateValue(el, end, duration = 2000) {
+  const start = 0;
+  const range = end - start;
+  let current = start;
+  const increment = Math.max(1, Math.floor(range / (duration / 16)));
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= end) {
+      el.textContent = end + (end >= 100 ? '+' : '');
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current) + (end >= 100 ? '+' : '');
+    }
+  }, 16);
+}
+
+const statsSection = document.querySelector('.stats');
+if (statsSection) {
+  const statsObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.stat .num').forEach(el => {
+          const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+          animateValue(el, target, 1600);
+        });
+        obs.disconnect(); // run once
+      }
+    });
+  }, {threshold: 0.3});
+  statsObserver.observe(statsSection);
+}
+
 // Navbar Scroll Enhancement
 const navbar = document.querySelector('header');
 window.addEventListener('scroll', () => {
