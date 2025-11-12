@@ -63,11 +63,13 @@ header.scrolled{box-shadow:0 8px 32px rgba(37,99,235,.15);background:linear-grad
 .section-title h2{font-size:44px;margin:0 0 12px;color:var(--accent);font-weight:900;letter-spacing:-1px;font-family:'Poppins',sans-serif}
 .section-title p{color:var(--muted);font-size:17px;margin:0;font-weight:500}
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.card{background:var(--card-bg);border-radius:12px;padding:36px;border:1.5px solid #E2E8F0;box-shadow:0 4px 20px rgba(0,0,0,.04);transition:all .35s cubic-bezier(.34,1.56,.64,1);animation:slideUp .6s ease-out both}
+.card{background:var(--card-bg);border-radius:12px;padding:36px;border:1.5px solid #E2E8F0;box-shadow:0 4px 20px rgba(0,0,0,.04);transition:all .35s cubic-bezier(.34,1.56,.64,1);animation:slideUp .6s ease-out both;overflow:hidden}
 .card:nth-child(1){animation-delay:.05s}
 .card:nth-child(2){animation-delay:.1s}
 .card:nth-child(3){animation-delay:.15s}
 .card:hover{transform:translateY(-12px);border-color:var(--primary);box-shadow:0 20px 60px rgba(37,99,235,.15);background:#ffffff}
+.card-image{width:100%;height:120px;margin:-36px -36px 20px -36px;border-radius:12px 12px 0 0;overflow:hidden}
+.card-image svg{width:100%;height:100%;object-fit:cover}
 .card-icon{font-size:52px;margin-bottom:16px;display:inline-block;animation:bounce 2s ease-in-out infinite}
 .card h3{margin:16px 0 12px;font-size:22px;color:var(--accent);font-weight:800;font-family:'Poppins',sans-serif}
 .card p{color:var(--muted);margin-bottom:0;font-size:15px;line-height:1.6;font-weight:500}
