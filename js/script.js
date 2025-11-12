@@ -1,45 +1,42 @@
-// Dark mode toggle
-const toggleBtn = document.querySelector('.theme-toggle');
-if (toggleBtn) {
-  toggleBtn.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    const isDark = document.documentElement.classList.contains('dark');
-    toggleBtn.textContent = isDark ? '☀️' : '🌙';
-    applyTheme(isDark);
-  });
-}
-
-function applyTheme(isDark) {
-  const root = document.documentElement.style;
-  if (isDark) {
-    root.setProperty('--bg', '#0B1220');
-    root.setProperty('--bg-soft', '#0F172A');
-    root.setProperty('--text', '#E5E7EB');
-    root.setProperty('--muted', '#CBD5E1');
-    root.setProperty('--border', '#1F2937');
-  } else {
-    root.setProperty('--bg', '#FFFFFF');
-    root.setProperty('--bg-soft', '#F8FAFC');
-    root.setProperty('--text', '#0B1220');
-    root.setProperty('--muted', '#64748B');
-    root.setProperty('--border', '#E2E8F0');
-  }
-}
-
-// Contact form → WhatsApp prefill
-const form = document.getElementById('contactForm');
-if (form) {
-  form.addEventListener('submit', (e) => {
+// Contact form → WhatsApp integration
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = encodeURIComponent(form.name.value.trim());
-    const phone = encodeURIComponent(form.phone.value.trim());
-    const service = encodeURIComponent(form.service.value.trim());
-    const message = encodeURIComponent(form.message.value.trim());
+    
+    const name = encodeURIComponent(contactForm.name.value.trim());
+    const phone = encodeURIComponent(contactForm.phone.value.trim());
+    const service = encodeURIComponent(contactForm.service.value.trim());
+    const message = encodeURIComponent(contactForm.message.value.trim());
 
-    // Replace with your uncle's WhatsApp number (no leading 0)
-    const waNumber = '03055051574';
-    const text = `New service request:%0AName: ${name}%0APhone: ${phone}%0AService: ${service}%0AIssue: ${message}`;
+    // WhatsApp business number for AC-Fridge Repair
+    const waNumber = '923001234567'; // Replace with actual number
+    const text = `🔧 New Service Request:%0A%0A📝 Name: ${name}%0A📱 Phone: ${phone}%0A🛠️ Service: ${service}%0A💬 Issue: ${message}`;
 
     window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
+    
+    // Reset form
+    contactForm.reset();
   });
 }
+
+// Smooth scrolling for internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// Add scroll effect to navbar
+window.addEventListener('scroll', () => {
+  const navbar = document.querySelector('header');
+  if (window.scrollY > 50) {
+    navbar.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+  } else {
+    navbar.style.boxShadow = 'none';
+  }
+});
