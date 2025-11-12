@@ -1,0 +1,47 @@
+<section class="page-header">
+  <div class="container">
+    <h1>Book a service</h1>
+    <p>Tell us your issue and your preferred time. We’ll confirm shortly.</p>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="container contact-grid">
+    <form class="contact-form" id="contactForm">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" required />
+
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" type="tel" required placeholder="+92XXXXXXXXXX" />
+
+      <label for="service">Service type</label>
+      <select id="service" name="service" required>
+        <option value="">Select a service</option>
+        <option>AC installation</option>
+        <option>AC repair</option>
+        <option>Refrigerator repair</option>
+        <option>Gas refilling</option>
+      </select>
+
+      <label for="message">Describe the issue</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button class="btn btn-primary" type="submit">Send request</button>
+    </form>
+
+    <div class="contact-info">
+      <h3>Contact details</h3>
+      <p>Phone: <a href="tel:+92XXXXXXXXXX">+92 XXXXX-XXXXX</a></p>
+      <p>WhatsApp: <a href="https://wa.me/92XXXXXXXXXX" target="_blank">Message us</a></p>
+      <p>Email: <a href="mailto:coolcare@example.com">coolcare@example.com</a></p>
+      <div class="map-embed">
+        <iframe
+          title="Location"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d..."
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
