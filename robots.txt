@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://touseefurrehmank-dotcom.github.io/Ac-Fridge_Site/sitemap.xml

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#F0F9FF"/>
+  <rect x="60" y="60" width="1080" height="510" rx="24" fill="url(#g)" opacity="0.95" />
+  <g fill="#fff" font-family="Poppins, sans-serif">
+    <text x="120" y="220" font-size="54" font-weight="700">AC & Fridge Repair</text>
+    <text x="120" y="290" font-size="28" font-weight="500">Expert repair services in Faisalabad — same-day, certified technicians</text>
+    <text x="120" y="360" font-size="22" font-weight="600">Call / WhatsApp: 0305-5051574</text>
+  </g>
+</svg>
